@@ -1,0 +1,60 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'me.tatarka.retrolambda'
+android {
+    compileSdkVersion 25
+    buildToolsVersion '25.0.0'
+    defaultConfig {
+        applicationId "com.hucet.github"
+        minSdkVersion 15
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    lintOptions {
+        abortOnError false
+    }
+}
+kapt {
+    generateStubs = true
+}
+dependencies {
+    //    Rx
+    compile rxDep.rxKotlin
+    compile rxDep.rxAndroid
+    //    Kotlin
+    compile kotlinDep.kotlin
+//  Android Support
+    compile androidSupportDep.appcompatv7
+    //    Test
+    testCompile testDep.junit
+    testCompile kotlinDep.kotlin_junit
+    testCompile kotlinDep.kluent
+    testCompile kotlinDep.mockito_kotlin
+    testCompile androidTestDep.robolectric
+
+    //     Dagger
+    compile injectDep.dagger
+    provided injectDep.javaxAnnotation
+    kapt injectDep.daggerCompiler
+
+    //     Http
+    compile httpDep.okHttp
+    compile httpDep.okHttpLogger
+    compile httpDep.converter_moshi
+    compile httpDep.retrofit
+    compile httpDep.retrofitRxjavaAdapter
+}
